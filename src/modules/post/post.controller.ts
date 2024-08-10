@@ -81,9 +81,14 @@ const getAllPostsByUser = errorWrapper(
           req?.query?.category !== PostCategoriesEnum.COMMON && {
             category: req.query?.category,
           }),
-        ...(req.query?.isDraft && {
-          isDraft: req?.query?.isDraft,
-        }),
+        ...(req.query?.isDraft &&
+          req.query?.isDraft === "true" && {
+            isDraft: true,
+          }),
+        ...(req.query?.isDraft &&
+          req.query?.isDraft === "false" && {
+            isDraft: false,
+          }),
       },
       options: {
         ...paginationOptions,

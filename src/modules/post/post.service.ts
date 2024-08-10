@@ -355,6 +355,7 @@ const getAllPostsByUser = async ({
       },
     },
   ]);
+  console.log(data, "datata------", query);
 
   return {
     data: data[0]?.data,
@@ -798,7 +799,7 @@ const getPostSequences = async ({
 
   console.log(data, "data-data-data-data-data");
 
-  return [{ value: "other", label: "Other" }, ...data];
+  return [{ value: "new-story", label: "New Story" }, ...data];
 };
 
 const findSequencePosts = async ({

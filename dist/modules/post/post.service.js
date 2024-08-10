@@ -329,6 +329,7 @@ const getAllPostsByUser = async ({ query, options, userId }) => {
       },
     },
   ]);
+  console.log(data, "datata------", query);
   return {
     data: data[0]?.data,
     totalCount: data[0]?.metadata[0]?.total || 0,
@@ -736,7 +737,7 @@ const getPostSequences = async ({ query, options }) => {
     },
   ]);
   console.log(data, "data-data-data-data-data");
-  return [{ value: "other", label: "Other" }, ...data];
+  return [{ value: "new-story", label: "New Story" }, ...data];
 };
 const findSequencePosts = async ({ query, options, userId }) => {
   const data = await getAllPosts({
