@@ -15,6 +15,7 @@ import {
   getAllUsers,
   findAvailableUsersForChat,
   findUserByParamId,
+  findFollowersFollowings,
 } from "../../modules/user/user.controller.js";
 import JoiValidator from "../../middleware/joi.middleware.js";
 import {
@@ -31,6 +32,11 @@ router.get(
   "/",
   protect([UserRole.ADMIN, UserRole.AUTHOR, UserRole.USER]),
   findUserById,
+);
+router.get(
+  "/followers",
+  protect([UserRole.ADMIN, UserRole.AUTHOR, UserRole.USER]),
+  findFollowersFollowings,
 );
 router.get(
   "/all",

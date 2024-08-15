@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction } from "express";
+import { Response, Request, NextFunction, query } from "express";
 
 import { responseUtils } from "../../utils/response.utils.js";
 import { errorWrapper } from "../../middleware/errorWrapper.js";
@@ -249,6 +249,23 @@ const findAvailableUsersForChat = errorWrapper(
   },
 );
 
+const findFollowersFollowings = errorWrapper(
+  async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    const data = await userService.findFollowersFollowings({
+      query: {
+        _id: new ObjectId(req?.user?._id),
+        isDeleted: false,
+      },
+      filterQuery: req?.query?.isFollowers ? "$followers" : "$followings",
+    });
+    console.log(req?.query?.isFollowers);
+
+    return responseUtils.success(res, {
+      data,
+      status: 200,
+    });
+  },
+);
 export {
   userSignUp,
   userSignIn,
@@ -265,4 +282,5 @@ export {
   getAllUsers,
   findAvailableUsersForChat,
   findUserByParamId,
+  findFollowersFollowings,
 };

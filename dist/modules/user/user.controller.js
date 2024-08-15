@@ -187,6 +187,20 @@ const findAvailableUsersForChat = errorWrapper(async (req, res, next) => {
     status: 200,
   });
 });
+const findFollowersFollowings = errorWrapper(async (req, res, next) => {
+  const data = await userService.findFollowersFollowings({
+    query: {
+      _id: new ObjectId(req?.user?._id),
+      isDeleted: false,
+    },
+    filterQuery: req?.query?.isFollowers ? "$followers" : "$followings",
+  });
+  console.log(req?.query?.isFollowers);
+  return responseUtils.success(res, {
+    data,
+    status: 200,
+  });
+});
 export {
   userSignUp,
   userSignIn,
@@ -203,4 +217,5 @@ export {
   getAllUsers,
   findAvailableUsersForChat,
   findUserByParamId,
+  findFollowersFollowings,
 };

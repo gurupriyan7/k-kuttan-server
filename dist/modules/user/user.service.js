@@ -489,6 +489,38 @@ const findAvailableUsersForChat = async ({ query, filterQuery }) => {
   console.log(data);
   return data[0]?.userData;
 };
+const findFollowersFollowings = async ({ query, filterQuery, userId }) => {
+  const data = await User.aggregate([
+    {
+      $match: query,
+    },
+    {
+      $project: {
+        commonArray: filterQuery,
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "commonArray",
+        foreignField: "_id",
+        pipeline: [
+          {
+            $project: {
+              _id: 1,
+              firstName: 1,
+              lastName: 1,
+              userName: 1,
+              profileImage: 1,
+            },
+          },
+        ],
+        as: "commonArray",
+      },
+    },
+  ]);
+  return data[0]?.commonArray;
+};
 export const userService = {
   userSignUp,
   userSignIn,
@@ -500,4 +532,5 @@ export const userService = {
   findUserById,
   getAllUsers,
   findAvailableUsersForChat,
+  findFollowersFollowings,
 };
