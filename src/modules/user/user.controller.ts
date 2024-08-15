@@ -256,7 +256,9 @@ const findFollowersFollowings = errorWrapper(
         _id: new ObjectId(req?.user?._id),
         isDeleted: false,
       },
-      filterQuery: req?.query?.isFollowers ? "$followers" : "$followings",
+      filterQuery:
+        req?.query?.isFollowers === "true" ? "$followers" : "$followings",
+      userId: req?.user?._id,
     });
     console.log(req?.query?.isFollowers);
 

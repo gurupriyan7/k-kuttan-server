@@ -599,6 +599,7 @@ const findFollowersFollowings = async ({
               lastName: 1,
               userName: 1,
               profileImage: 1,
+              isFollowing: { $in: [userId, "$followers"] },
             },
           },
         ],

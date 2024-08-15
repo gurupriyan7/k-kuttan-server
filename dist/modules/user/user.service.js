@@ -512,6 +512,7 @@ const findFollowersFollowings = async ({ query, filterQuery, userId }) => {
               lastName: 1,
               userName: 1,
               profileImage: 1,
+              isFollowing: { $in: [userId, "$followers"] },
             },
           },
         ],
